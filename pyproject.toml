@@ -5,33 +5,28 @@ build-backend = "hatchling.build"
 [project]
 name = "ocean"
 dynamic = ["version"]
-description = ''
+description = 'A pipeline to scour the MWA Archive for Outbursts of Coherent Emission Amidst Noise.'
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
 keywords = []
-authors = [
-  { name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" },
-]
+authors = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
+maintainers = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
 classifiers = [
-  "Development Status :: 4 - Beta",
-  "Programming Language :: Python",
-  "Programming Language :: Python :: 3.8",
-  "Programming Language :: Python :: 3.9",
-  "Programming Language :: Python :: 3.10",
-  "Programming Language :: Python :: 3.11",
-  "Programming Language :: Python :: 3.12",
-  "Programming Language :: Python :: Implementation :: CPython",
-  "Programming Language :: Python :: Implementation :: PyPy",
+    "Development Status :: 4 - Beta",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
 ]
-dependencies = [
-  "click",
-]
+dependencies = ["click"]
 
 [project.urls]
-Documentation = "https://github.com/Kenil Ajudiya/ocean#readme"
-Issues = "https://github.com/Kenil Ajudiya/ocean/issues"
-Source = "https://github.com/Kenil Ajudiya/ocean"
+Documentation = "https://github.com/Kenil-Ajudiya/ocean#readme"
+Issues = "https://github.com/Kenil-Ajudiya/ocean/issues"
+Source = "https://github.com/Kenil-Ajudiya/ocean"
 
 [project.scripts]
 ocean = "ocean.cli:ocean"
@@ -40,9 +35,7 @@ ocean = "ocean.cli:ocean"
 path = "src/ocean/__about__.py"
 
 [tool.hatch.envs.types]
-extra-dependencies = [
-  "mypy>=1.0.0",
-]
+extra-dependencies = ["mypy>=1.0.0"]
 [tool.hatch.envs.types.scripts]
 check = "mypy --install-types --non-interactive {args:src/ocean tests}"
 
@@ -50,9 +43,7 @@ check = "mypy --install-types --non-interactive {args:src/ocean tests}"
 source_pkgs = ["ocean", "tests"]
 branch = true
 parallel = true
-omit = [
-  "src/ocean/__about__.py",
-]
+omit = ["src/ocean/__about__.py"]
 
 [tool.coverage.paths]
 ocean = ["src/ocean", "*/ocean/src/ocean"]
@@ -60,7 +51,21 @@ tests = ["tests", "*/ocean/tests"]
 
 [tool.coverage.report]
 exclude_lines = [
-  "no cov",
-  "if __name__ == .__main__.:",
-  "if TYPE_CHECKING:",
+    "no cov",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:"
 ]
+
+[tool.hatch.build]
+include = [
+    "src/ocean/**",
+    "README.md",
+    "LICENSE",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/ocean"]
+
+[tool.hatch.publish.index.repos]
+test = "https://test.pypi.org/project/ocean/"
+main = "https://upload.pypi.org/project/ocean/"

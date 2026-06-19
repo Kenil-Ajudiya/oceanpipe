@@ -1,4 +1,6 @@
-# ocean
+# The OCEAN Pipeline
+
+## Scouring the MWA Archive for Outbursts of Coherent Emission Amidst Noise
 
 [![PyPI - Version](https://img.shields.io/pypi/v/ocean.svg)](https://pypi.org/project/ocean)
 [![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ocean.svg)](https://pypi.org/project/ocean)
