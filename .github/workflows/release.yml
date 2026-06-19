@@ -12,7 +12,7 @@ jobs:
     # Mandatory environment block matching PyPI Trusted Publisher standards
     environment:
       name: pypi
-      url: https://pypi.org/project/ocean/
+      url: https://pypi.org/project/oceanpipe/
       
     permissions:
       id-token: write  # Crucial: Allows GitHub to securely request a temporary PyPI token

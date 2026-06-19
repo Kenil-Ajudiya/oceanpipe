@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ocean"
+name = "oceanpipe"
 dynamic = ["version"]
 description = 'A pipeline to scour the MWA Archive for Outbursts of Coherent Emission Amidst Noise.'
 readme = "README.md"
@@ -67,5 +67,5 @@ include = [
 packages = ["src/ocean"]
 
 [tool.hatch.publish.index.repos]
-test = "https://test.pypi.org/project/ocean/"
-main = "https://upload.pypi.org/project/ocean/"
+test = "https://test.pypi.org/project/oceanpipe/"
+main = "https://upload.pypi.org/project/oceanpipe/"
