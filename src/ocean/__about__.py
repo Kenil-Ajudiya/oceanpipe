@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: MIT
 from __future__ import annotations
 
-from _version import __version__
+from ._version import __version__
 
 __title__ = "oceanpipe"
 __version__ = __version__

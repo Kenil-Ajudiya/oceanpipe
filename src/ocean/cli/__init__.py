@@ -7,12 +7,29 @@
 from __future__ import annotations
 
 import click
+import logging
+from pathlib import Path
+from .logger_design import setup_logger
+from .get_data import giant_squid
 
 from ocean.__about__ import __version__
 
+# Time-stamped log file name to prevent overwriting previous logs. Format: ocean_2024-06-01_12-00-00.log
+log_file = Path(f"deep_logs/ocean_{logging.Formatter(datefmt='%Y-%m-%d_%H%M%S').formatTime(logging.LogRecord('', '', '', '', '', None, None))}.log")
+log_file.parent.mkdir(parents=True, exist_ok=True)
+setup_logger(log_file=log_file)
+logger: logging.Logger = logging.getLogger(__name__)
 
 @click.group(context_settings={"help_option_names": ["-h", "--help"]}, invoke_without_command=True)
 @click.version_option(version=__version__, prog_name="ocean")
-def ocean() -> None:
-    click.echo("Hello world!")
-    click.echo("Welcome to OCEAN - Outbursts of Coherent Emission Amidst Noise!")
+@click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging (DEBUG level).")
+@click.pass_context
+def ocean(ctx: click.Context, verbose: bool) -> None:
+    """OCEAN - A pipeline to scour for Outbursts of Coherent Emission Amidst Noise in the MWA Archive."""
+    if verbose:
+        logger.setLevel(logging.DEBUG)
+    if ctx.invoked_subcommand is None:
+        logger.info("Welcome to a rich OCEAN - Outbursts of Coherent Emission Amidst Noise!")
+        logger.debug("This is a debug message, visible only in verbose mode.")
+
+ocean.add_command(giant_squid)
