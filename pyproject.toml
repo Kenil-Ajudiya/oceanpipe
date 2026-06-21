@@ -1,20 +1,28 @@
 [build-system]
-requires = ["hatchling"]
+requires = ["hatchling", "hatch-vcs"]
 build-backend = "hatchling.build"
 
 [project]
 name = "oceanpipe"
 dynamic = ["version"]
-description = 'A pipeline to scour the MWA Archive for Outbursts of Coherent Emission Amidst Noise.'
+description = "A pipeline to scour the MWA Archive for Outbursts of Coherent Emission Amidst Noise."
 readme = "README.md"
 requires-python = ">=3.8"
 license = "MIT"
-keywords = []
+keywords = ["LPTs", "MWA", "Radio Astronomy", "Transient Search"]
 authors = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
 maintainers = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
-classifiers = [
-    "Development Status :: 4 - Beta",
-    "Programming Language :: Python",
+classifiers = [ # Full list of classifiers: https://pypi.org/classifiers/
+    "Development Status :: 1 - Planning",
+
+    "Intended Audience :: Science/Research",
+    "Topic :: Scientific/Engineering :: Astronomy",
+
+    "License :: OSI Approved :: MIT License",
+
+    "Operating System :: POSIX :: Linux",
+
+    "Programming Language :: Python :: 3",
     "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
@@ -23,49 +31,42 @@ classifiers = [
 ]
 dependencies = ["click"]
 
-[project.urls]
-Documentation = "https://github.com/Kenil-Ajudiya/ocean#readme"
-Issues = "https://github.com/Kenil-Ajudiya/ocean/issues"
-Source = "https://github.com/Kenil-Ajudiya/ocean"
+urls.Documentation = "https://github.com/Kenil-Ajudiya/oceanpipe#readme"
+urls.Issues = "https://github.com/Kenil-Ajudiya/oceanpipe/issues"
+urls.Source = "https://github.com/Kenil-Ajudiya/oceanpipe"
 
-[project.scripts]
-ocean = "ocean.cli:ocean"
+scripts.ocean = "ocean.cli:ocean" # Define the command-line interface entry point
 
-[tool.hatch.version]
-path = "src/ocean/__about__.py"
+# Coverage configuration
+[tool.coverage]
+run.source_pkgs = ["ocean", "tests"]
+run.branch = true
+run.parallel = true
+run.omit = ["src/ocean/__about__.py"]
 
-[tool.hatch.envs.types]
-extra-dependencies = ["mypy>=1.0.0"]
-[tool.hatch.envs.types.scripts]
-check = "mypy --install-types --non-interactive {args:src/ocean tests}"
+paths.ocean = ["src/ocean", "*/ocean/src/ocean"]
+paths.tests = ["tests", "*/ocean/tests"]
 
-[tool.coverage.run]
-source_pkgs = ["ocean", "tests"]
-branch = true
-parallel = true
-omit = ["src/ocean/__about__.py"]
-
-[tool.coverage.paths]
-ocean = ["src/ocean", "*/ocean/src/ocean"]
-tests = ["tests", "*/ocean/tests"]
-
-[tool.coverage.report]
-exclude_lines = [
+report.exclude_lines = [
     "no cov",
     "if __name__ == .__main__.:",
     "if TYPE_CHECKING:"
 ]
 
-[tool.hatch.build]
-include = [
+# Hatch configuration
+[tool.hatch]
+version.source = "vcs"
+
+build.hooks.vcs.version-file = "src/ocean/_version.py"
+build.include = [
     "src/ocean/**",
     "README.md",
     "LICENSE",
 ]
+build.targets.wheel.packages = ["src/ocean"]
 
-[tool.hatch.build.targets.wheel]
-packages = ["src/ocean"]
+envs.types.extra-dependencies = ["mypy>=1.0.0"]
+envs.types.scripts.check = "mypy --install-types --non-interactive {args:src/ocean tests}"
 
-[tool.hatch.publish.index.repos]
-test = "https://test.pypi.org/project/oceanpipe/"
-main = "https://upload.pypi.org/project/oceanpipe/"
+publish.index.repos.test = "https://test.pypi.org/project/oceanpipe/"
+publish.index.repos.main = "https://upload.pypi.org/project/oceanpipe/"

@@ -2,8 +2,8 @@
 
 ## Scouring the MWA Archive for Outbursts of Coherent Emission Amidst Noise
 
-[![PyPI - Version](https://img.shields.io/pypi/v/ocean.svg)](https://pypi.org/project/ocean)
-[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/ocean.svg)](https://pypi.org/project/ocean)
+[![PyPI - Version](https://img.shields.io/pypi/v/oceanpipe.svg)](https://pypi.org/project/oceanpipe)
+[![PyPI - Python Version](https://img.shields.io/pypi/pyversions/oceanpipe.svg)](https://pypi.org/project/oceanpipe)
 
 -----
 
@@ -15,9 +15,9 @@
 ## Installation
 
 ```console
-pip install ocean
+pip install oceanpipe
 ```
 
 ## License
 
-`ocean` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
+`oceanpipe` is distributed under the terms of the [MIT](https://spdx.org/licenses/MIT.html) license.
