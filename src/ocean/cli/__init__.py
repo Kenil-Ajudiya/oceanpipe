@@ -1,7 +1,17 @@
 # SPDX-FileCopyrightText: 2026-present Kenil Ajudiya <k.ajudiya@postgrad.curtin.edu.au>
 #
 # SPDX-License-Identifier: MIT
-"""ocean.cli - Command-line interface for OCEAN.
+"""ocean.cli: Command-line interface for OCEAN.
+
+This module serves as the entry point for the OCEAN command-line tool,
+providing a user-friendly interface to access various functionalities of the OCEAN pipeline,
+including data fetching, imaging, candidate classification and transient search database management.
+Each subcommand corresponds to a specific task within the pipeline,
+allowing users to easily execute complex workflows with simple commands.
+
+The CLI is built using the Click library, which provides a powerful and flexible framework for creating command-line interfaces.
+The logging system is configured to provide rich, informative output to the console using the Rich library,
+while also maintaining detailed logs in a file for later analysis and debugging.
 """
 
 from __future__ import annotations
@@ -9,13 +19,14 @@ from __future__ import annotations
 import click
 import logging
 from pathlib import Path
+
 from .logger_design import setup_logger
-from .get_data import giant_squid
+from .fetch_data import call_giant_squid
 
 from ocean.__about__ import __version__
 
 # Time-stamped log file name to prevent overwriting previous logs. Format: ocean_2024-06-01_12-00-00.log
-log_file = Path(f"deep_logs/ocean_{logging.Formatter(datefmt='%Y-%m-%d_%H%M%S').formatTime(logging.LogRecord('', '', '', '', '', None, None))}.log")
+log_file = Path(f"deep_logs/ocean_{logging.Formatter(datefmt='%Y-%m-%d_%H%M%S').formatTime(logging.LogRecord('', 0, '', 0, '', None, None))}.log")
 log_file.parent.mkdir(parents=True, exist_ok=True)
 setup_logger(log_file=log_file)
 logger: logging.Logger = logging.getLogger(__name__)
@@ -32,4 +43,4 @@ def ocean(ctx: click.Context, verbose: bool) -> None:
         logger.info("Welcome to a rich OCEAN - Outbursts of Coherent Emission Amidst Noise!")
         logger.debug("This is a debug message, visible only in verbose mode.")
 
-ocean.add_command(giant_squid)
+ocean.add_command(call_giant_squid)
