@@ -13,7 +13,7 @@ keywords = ["LPTs", "MWA", "Radio Astronomy", "Transient Search"]
 authors = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
 maintainers = [{ name = "Kenil Ajudiya", email = "k.ajudiya@postgrad.curtin.edu.au" }]
 classifiers = [ # Full list of classifiers: https://pypi.org/classifiers/
-    "Development Status :: 2 - Pre-Alpha",
+    "Development Status :: 3 - Alpha",
 
     "Intended Audience :: Science/Research",
     "Topic :: Scientific/Engineering :: Astronomy",

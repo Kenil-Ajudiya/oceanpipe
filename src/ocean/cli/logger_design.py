@@ -1,10 +1,10 @@
 import logging
+from pathlib import Path
 from rich.console import Console
 from rich.logging import RichHandler
 from rich.theme import Theme
 
-
-def setup_logger(log_level: int = logging.INFO, log_file: str = "ocean.log"):
+def setup_logger(log_level: int = logging.INFO, log_file: Path | str = "ocean.log"):
     """Configures the root logger for both console (Rich) and file output."""
 
     # 1. Set up the File Handler
@@ -46,4 +46,5 @@ def setup_logger(log_level: int = logging.INFO, log_file: str = "ocean.log"):
         level=log_level,
         format="%(message)s",  # RichHandler uses this minimal format
         handlers=[console_handler, file_handler],
+        force=True,  # Ensures that the configuration is applied, avoiding conflicts with Prefect's logging setup.
     )
