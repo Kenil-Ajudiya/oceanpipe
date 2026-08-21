@@ -1,0 +1,40 @@
+services:
+  # ---------------------------------------------------------------------------
+  # Service 1: PostgreSQL Database Backend
+  # ---------------------------------------------------------------------------
+  postgres:
+    image: postgres:latest
+    container_name: oceanpipe-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: prefect
+      POSTGRES_PASSWORD: strongpassword123
+      POSTGRES_DB: prefect_db
+    volumes: # This will be mounted in the container at /var/lib/postgresql/data, which is the default data directory for PostgreSQL.
+      - /mnt/oceanpipe-volume/prefect_database:/var/lib/postgresql
+      # oceanpipe-volume is a Nectar volume and is mounted at /mnt/oceanpipe-volume.
+      # prefect_database is a directory inside oceanpipe-volume that will be used to store the Prefect database.
+      # This will persist the database data on the host machine, so that it is not lost when the container is stopped or removed.
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U prefect -d prefect_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  # ---------------------------------------------------------------------------
+  # Service 2: Prefect Server (API + Web UI Dashboard)
+  # ---------------------------------------------------------------------------
+  prefect-server:
+    image: prefecthq/prefect:3-latest
+    container_name: prefect-server
+    restart: unless-stopped
+    environment:
+      PREFECT_API_URL: "http://XXX.XXX.XXX.XXX:PORT/api"
+      PREFECT_SERVER_API_HOST: XXX.XXX.XXX.XXX
+      PREFECT_API_DATABASE_CONNECTION_URL: postgresql+asyncpg://prefect:strongpassword123@postgres:5432/prefect_db
+    command: prefect server start
+    ports:
+      - "PORT:PORT"
+    depends_on:
+      postgres:
+        condition: service_healthy

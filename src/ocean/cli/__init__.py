@@ -32,7 +32,7 @@ from ocean.__about__ import __version__
 @click.group(context_settings={"help_option_names": ["-h", "--help"]}, invoke_without_command=True)
 @click.version_option(version=__version__, prog_name="ocean")
 @click.option("--verbose", "-v", is_flag=True, help="Enable verbose logging (DEBUG level).")
-@click.option("--config-file", "-c", type=click.Path(exists=True, dir_okay=False, resolve_path=True, path_type=Path), default="./configuration/config.yaml", help="Path to the configuration file (YAML format).")
+@click.option("--config-file", "-c", type=click.Path(exists=True, dir_okay=False, resolve_path=True, path_type=Path), help="Path to the configuration file (YAML format).")
 @click.pass_context
 def ocean(click_context: click.Context, verbose: bool, config_file: Path) -> None:
     """OCEAN - A pipeline to scour for Outbursts of Coherent Emission Amidst Noise in the MWA Archive."""

@@ -5,4 +5,3 @@ src/ocean/_version.py
 deep_logs/
 typings/
 configuration/
-container/docker-compose.yml
